@@ -107,6 +107,7 @@
             button2.TabIndex = 1;
             button2.Text = "Cadastro de Usuário";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // button1
             // 
@@ -149,13 +150,13 @@
             // transferirMaterialToolStripMenuItem
             // 
             transferirMaterialToolStripMenuItem.Name = "transferirMaterialToolStripMenuItem";
-            transferirMaterialToolStripMenuItem.Size = new Size(212, 26);
+            transferirMaterialToolStripMenuItem.Size = new Size(224, 26);
             transferirMaterialToolStripMenuItem.Text = "Transferir Material";
             // 
             // receberMaterialToolStripMenuItem
             // 
             receberMaterialToolStripMenuItem.Name = "receberMaterialToolStripMenuItem";
-            receberMaterialToolStripMenuItem.Size = new Size(212, 26);
+            receberMaterialToolStripMenuItem.Size = new Size(224, 26);
             receberMaterialToolStripMenuItem.Text = "Receber Material";
             // 
             // consultaDeEstoqueToolStripMenuItem

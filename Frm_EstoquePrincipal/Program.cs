@@ -13,10 +13,16 @@ namespace Frm_EstoquePrincipal
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Frm_CadastraMaterial());
+            Application.Run(new Frm_CadastraUser());
 
         }
     }
 }
 
 //redes sociais que fizeram dar origem aos bancos de dados NoSQL
+
+//Modelo Não relacional
+//formulario --- item - ficharioSql ----- sqlServer
+
+//Modelo Relacional 
+//formulario --- item ---- sqlServer

@@ -29,14 +29,19 @@ namespace EstoqueTI
         private void button1_Click(object sender, EventArgs e)
         {
             Item item = new Item();
-            item.id = 1;
-            item.nomeItem = "ferramenta";
-            item.valorItem = "1000000";
-            item.fornecedor = "TexugoBolado";
-            item.observacao = "Top o Produto";
+            //item = item.BuscarFicharioSQLREL(1);
 
-            //Coloca a tabela!!
-            item.buscarFicharioSql(1,"dbo.item");
+
+            item.id = 2;
+            item.nomeItem = "Computador";
+            item.valorItem = "10000";
+            item.fornecedor = "Pedrelli informática";
+            item.observacao = "TESTE 2";
+
+            item.nomeItem = "Computador Supra Bolado";
+
+            item.ApagarFicharioSQLREL();
+
 
 
 
