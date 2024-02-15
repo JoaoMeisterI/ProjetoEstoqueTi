@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -8,42 +7,50 @@ using System.Threading.Tasks;
 
 namespace EstoqueTI.Classes
 {
-    public class User
+    public class Item
     {
         public class Unit
         {
             public int id { get; set; }
-            [Required(ErrorMessage = "Nome é Obrigatório")]
-            public string nome { get; set; }
-            [Required(ErrorMessage = "Usuário é Obrigatório")]
-            public string usuario { get; set; }
-            
-            [Required(ErrorMessage = "Senha é Obrigatório")]
-            [StringLength(30, MinimumLength = 8, ErrorMessage = "A senha deve ter no mínimo 8 caracteres e no máximo 30.")]
-            public string senha { get; set; }
-            [Required(ErrorMessage = "Liberação é Obrigatório")]
-            public string liberacao { get; set; }
+            public string nomeItem { get; set; }
+            public string categoria { get; set; }
+            public string observacao { get; set; }
 
-            public List<string> ListaCamposDB = new List<string>() { "id", "nome", "usuario", "senha", "liberacao" };
-            public string tabela = "dbo.usuario";
+            public List<string> ListaCamposDB = new List<string>() { "id", "item", "categoria", "observacao" };
+            public string tabela = "dbo.item";
 
-            public void ValidaClasse()
+            // "CRUD DO FICHARIO DO DB SQL SERVER"
+
+            public void incluirFicharioSql(string tabela)
             {
-                ValidationContext context = new ValidationContext(this, serviceProvider: null, items: null);
-                List<ValidationResult> results = new List<ValidationResult>();
-                bool isValid = Validator.TryValidateObject(this, context, results, true);
-
-                if (isValid == false)
+                FicharioSqlServer fc = new FicharioSqlServer(tabela);
+                if (fc.status)
                 {
-                    StringBuilder sbrErrors = new StringBuilder();
-                    foreach (var validationResult in results)
+                    fc.Incluir(id, nomeItem, categoria, observacao);
+                    if (!fc.status)
                     {
-                        sbrErrors.AppendLine(validationResult.ErrorMessage);
+                        throw new Exception(fc.mensagem);
                     }
-                    throw new ValidationException(sbrErrors.ToString());
+                }
+                else
+                {
+                    throw new Exception(fc.mensagem);
                 }
             }
 
+            public List<string> buscarFicharioSql(int id, string tabela)
+            {
+                FicharioSqlServer fc = new FicharioSqlServer(tabela);
+                if (fc.status)
+                {
+                    List<string> ListaDb = fc.Buscar(id);
+                    return ListaDb;
+                }
+                return null;
+            }
+
+
+            //"CRUD DB RELACIONAL"
 
             #region "FUNÇÕES AUXILIARES"
             //Pegar o conteudo e transformar em insert
@@ -52,8 +59,8 @@ namespace EstoqueTI.Classes
                 string SQL;
 
                 SQL = $@"INSERT INTO {tabela}
-            ({ListaCamposDB[0]}, {ListaCamposDB[1]}, {ListaCamposDB[2]}, {ListaCamposDB[3]}, {ListaCamposDB[4]}) VALUES ('";
-                SQL += this.id + "', '" + this.nome + "', '" + this.usuario + "', '" + this.senha + "', '" + this.liberacao + "')";
+            ({ListaCamposDB[0]}, {ListaCamposDB[1]}, {ListaCamposDB[2]}, {ListaCamposDB[3]}) VALUES ('";
+                SQL += id + "', '" + nomeItem + "', '" + "', '" + categoria + "', '" + observacao + "')";
                 return SQL;
             }
 
@@ -63,11 +70,10 @@ namespace EstoqueTI.Classes
 
                 string SQL;
                 SQL = $@"UPDATE {tabela} SET ";
-                SQL += $"{ListaCamposDB[1]} = '" + this.nome + "',";
-                SQL += $"{ListaCamposDB[2]} = '" + this.usuario + "',";
-                SQL += $"{ListaCamposDB[3]} = '" + this.senha + "',";
-                SQL += $"{ListaCamposDB[4]}  = '" + this.liberacao + "'";
-                SQL += " WHERE id = '" + this.id + "';";
+                SQL += $"{ListaCamposDB[1]} = '" + nomeItem + "',";
+                SQL += $"{ListaCamposDB[2]} = '" + categoria + "',";
+                SQL += $"{ListaCamposDB[3]}  = '" + observacao + "'";
+                SQL += " WHERE id = '" + id + "';";
 
 
                 return SQL;
@@ -77,10 +83,9 @@ namespace EstoqueTI.Classes
             {
                 Unit u = new Unit();
                 u.id = Convert.ToInt32(dr["id"]);
-                u.nome = dr[ListaCamposDB[1]].ToString();
-                u.usuario = dr[ListaCamposDB[2]].ToString();
-                u.senha = dr[ListaCamposDB[3]].ToString();
-                u.liberacao = dr[ListaCamposDB[4]].ToString();
+                u.nomeItem = dr[ListaCamposDB[1]].ToString();
+                u.categoria = dr[ListaCamposDB[2]].ToString();
+                u.observacao = dr[ListaCamposDB[3]].ToString();
                 return u;
 
 
@@ -95,7 +100,7 @@ namespace EstoqueTI.Classes
                 try
                 {
                     string SQL;
-                    SQL = this.ToInsert();
+                    SQL = ToInsert();
                     var db = new SqlClassServer();
                     db.SQLCommand(SQL);
                     db.Close();
@@ -103,7 +108,7 @@ namespace EstoqueTI.Classes
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Inclusão não permitida. Identificador: " + this.id + ", erro: " + ex.Message);
+                    throw new Exception("Inclusão não permitida. Identificador: " + id + ", erro: " + ex.Message);
                 }
 
             }
@@ -122,7 +127,7 @@ namespace EstoqueTI.Classes
                     }
                     else
                     {
-                        Unit u = this.DataRowToUnit(Dt.Rows[0]);
+                        Unit u = DataRowToUnit(Dt.Rows[0]);
                         return u;
                     }
                 }
@@ -137,17 +142,17 @@ namespace EstoqueTI.Classes
             {
                 try
                 {
-                    string SQL = $"SELECT * FROM {tabela} WHERE Id = '" + this.id + "'";
+                    string SQL = $"SELECT * FROM {tabela} WHERE Id = '" + id + "'";
                     var db = new SqlClassServer();
                     var Dt = db.SQLQuery(SQL);
                     if (Dt.Rows.Count == 0)
                     {
                         db.Close();
-                        throw new Exception("Indentificador não existente: " + this.id);
+                        throw new Exception("Indentificador não existente: " + id);
                     }
                     else
                     {
-                        SQL = this.ToUpdate(this.id);
+                        SQL = ToUpdate(id);
                         db.SQLCommand(SQL);
                         db.Close();
                     }
@@ -162,18 +167,18 @@ namespace EstoqueTI.Classes
             {
                 try
                 {
-                    string SQL = $"SELECT * FROM {tabela} WHERE Id = '" + this.id + "'";
+                    string SQL = $"SELECT * FROM {tabela} WHERE Id = '" + id + "'";
                     var db = new SqlClassServer();
                     //Usando o db.SQLQurey para validar se o cliente existe
                     var Dt = db.SQLQuery(SQL);
                     if (Dt.Rows.Count == 0)
                     {
                         db.Close();
-                        throw new Exception("Indentificador não existente: " + this.id);
+                        throw new Exception("Indentificador não existente: " + id);
                     }
                     else
                     {
-                        SQL = $"DELETE FROM {tabela} WHERE Id = '" + this.id + "'";
+                        SQL = $"DELETE FROM {tabela} WHERE Id = '" + id + "'";
                         db.SQLCommand(SQL);
                         db.Close();
                     }
@@ -198,20 +203,89 @@ namespace EstoqueTI.Classes
                     }
                     return ListaBusca;
 
-
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Conexão com a base ocasionou um erro: " + ex.Message);
-
-
                 }
-
-                #endregion
             }
+
+            #endregion
+
+
+
         }
 
     }
 
 }
+//Agora já consegue jogar no código
 
+
+
+
+
+
+
+//public void AlterarFicharioSQL(string conexao)
+//{
+//    string clienteJson = Cliente.SerializedClassUnit(this);
+//    FicharioSQLServer F = new FicharioSQLServer(conexao);
+//    if (F.status)
+//    {
+//        F.Alterar(this.Id, clienteJson);
+//        if (!(F.status))
+//        {
+//            throw new Exception(F.mensagem);
+//        }
+//    }
+//    else
+//    {
+//        throw new Exception(F.mensagem);
+//    }
+//}
+
+//public void ApagarFicharioSQL(string conexao)
+//{
+//    FicharioSQLServer F = new FicharioSQLServer(conexao);
+//    if (F.status)
+//    {
+//        F.Apagar(this.Id);
+//        if (!(F.status))
+//        {
+//            throw new Exception(F.mensagem);
+//        }
+//    }
+//    else
+//    {
+//        throw new Exception(F.mensagem);
+//    }
+//}
+
+//public List<List<string>> BuscarFicharioDBTodosSQL(string conexao)
+//{
+//    FicharioSQLServer F = new FicharioSQLServer(conexao);
+//    if (F.status)
+//    {
+//        List<string> List = new List<string>();
+//        List = F.BuscarTodos();
+//        if (F.status)
+//        {
+//            List<List<string>> ListaBusca = new List<List<string>>();
+//            for (int i = 0; i <= List.Count - 1; i++)
+//            {
+//                Cliente.Unit C = Cliente.DesSerializedClassUnit(List[i]);
+//                ListaBusca.Add(new List<string> { C.Id, C.nomeItem });
+//            }
+//            return ListaBusca;
+//        }
+//        else
+//        {
+//            throw new Exception(F.mensagem);
+//        }
+//    }
+//    else
+//    {
+//        throw new Exception(F.mensagem);
+//    }
+//}

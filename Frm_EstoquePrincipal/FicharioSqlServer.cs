@@ -29,7 +29,7 @@ namespace EstoqueTI
             }
         }
 
-        public void Incluir(int Id, string item,string valorItem, string fornecedor, string obs)
+        public void Incluir(int Id, string item,string categoria, string obs)
         {
             status = true;
             try

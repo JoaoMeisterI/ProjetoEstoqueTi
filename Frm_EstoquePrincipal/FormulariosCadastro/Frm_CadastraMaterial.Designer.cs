@@ -28,121 +28,124 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
-            txt_item = new TextBox();
-            txt_valor = new TextBox();
-            label2 = new Label();
-            txt_fornecedor = new TextBox();
-            label3 = new Label();
-            txt_obs = new TextBox();
-            label4 = new Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_CadastraMaterial));
             button1 = new Button();
+            cb_categoria = new ComboBox();
+            lbl_categoria = new Label();
+            txt_observacao = new TextBox();
+            lbl_observacao = new Label();
+            txt_item = new TextBox();
+            lbl_item = new Label();
+            pictureBox1 = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(18, 24);
-            label1.Name = "label1";
-            label1.Size = new Size(39, 20);
-            label1.TabIndex = 0;
-            label1.Text = "Item";
-            // 
-            // txt_item
-            // 
-            txt_item.Location = new Point(18, 47);
-            txt_item.Name = "txt_item";
-            txt_item.Size = new Size(140, 27);
-            txt_item.TabIndex = 1;
-            // 
-            // txt_valor
-            // 
-            txt_valor.Location = new Point(18, 123);
-            txt_valor.Name = "txt_valor";
-            txt_valor.Size = new Size(140, 27);
-            txt_valor.TabIndex = 3;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(18, 100);
-            label2.Name = "label2";
-            label2.Size = new Size(43, 20);
-            label2.TabIndex = 2;
-            label2.Text = "Valor";
-            // 
-            // txt_fornecedor
-            // 
-            txt_fornecedor.Location = new Point(18, 199);
-            txt_fornecedor.Name = "txt_fornecedor";
-            txt_fornecedor.Size = new Size(140, 27);
-            txt_fornecedor.TabIndex = 5;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(18, 176);
-            label3.Name = "label3";
-            label3.Size = new Size(88, 20);
-            label3.TabIndex = 4;
-            label3.Text = "Fornecedor ";
-            // 
-            // txt_obs
-            // 
-            txt_obs.Location = new Point(18, 278);
-            txt_obs.Name = "txt_obs";
-            txt_obs.Size = new Size(140, 27);
-            txt_obs.TabIndex = 7;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(18, 255);
-            label4.Name = "label4";
-            label4.Size = new Size(87, 20);
-            label4.TabIndex = 6;
-            label4.Text = "Observação";
             // 
             // button1
             // 
-            button1.Location = new Point(18, 350);
+            button1.ForeColor = Color.Black;
+            button1.Location = new Point(12, 603);
             button1.Name = "button1";
-            button1.Size = new Size(140, 34);
-            button1.TabIndex = 8;
-            button1.Text = "button1";
+            button1.Size = new Size(390, 36);
+            button1.TabIndex = 23;
+            button1.Text = "Cadastrar Item";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+         
+            // 
+            // cb_categoria
+            // 
+            cb_categoria.FormattingEnabled = true;
+            cb_categoria.Items.AddRange(new object[] { "Periféricos", "Computador", "Infraestrutura Som", "Infraestutura Rede", "Servidor", "Contrato Sistemas", "Customização" });
+            cb_categoria.Location = new Point(12, 480);
+            cb_categoria.Name = "cb_categoria";
+            cb_categoria.Size = new Size(390, 28);
+            cb_categoria.TabIndex = 22;
+            // 
+            // lbl_categoria
+            // 
+            lbl_categoria.AutoSize = true;
+            lbl_categoria.Font = new Font("Tahoma", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbl_categoria.ForeColor = SystemColors.ControlLightLight;
+            lbl_categoria.Location = new Point(12, 443);
+            lbl_categoria.Name = "lbl_categoria";
+            lbl_categoria.Size = new Size(132, 34);
+            lbl_categoria.TabIndex = 21;
+            lbl_categoria.Text = "Categoria";
+            // 
+            // txt_observacao
+            // 
+            txt_observacao.Location = new Point(12, 360);
+            txt_observacao.Name = "txt_observacao";
+            txt_observacao.Size = new Size(390, 27);
+            txt_observacao.TabIndex = 18;
+            // 
+            // lbl_observacao
+            // 
+            lbl_observacao.AutoSize = true;
+            lbl_observacao.Font = new Font("Tahoma", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbl_observacao.ForeColor = SystemColors.ControlLightLight;
+            lbl_observacao.Location = new Point(12, 323);
+            lbl_observacao.Name = "lbl_observacao";
+            lbl_observacao.Size = new Size(160, 34);
+            lbl_observacao.TabIndex = 17;
+            lbl_observacao.Text = "Observação";
+            // 
+            // txt_item
+            // 
+            txt_item.Location = new Point(12, 231);
+            txt_item.Name = "txt_item";
+            txt_item.Size = new Size(390, 27);
+            txt_item.TabIndex = 16;
+            // 
+            // lbl_item
+            // 
+            lbl_item.AutoSize = true;
+            lbl_item.Font = new Font("Tahoma", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbl_item.ForeColor = SystemColors.ControlLightLight;
+            lbl_item.Location = new Point(12, 194);
+            lbl_item.Name = "lbl_item";
+            lbl_item.Size = new Size(73, 34);
+            lbl_item.TabIndex = 15;
+            lbl_item.Text = "Item";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(12, 12);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(765, 139);
+            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox1.TabIndex = 24;
+            pictureBox1.TabStop = false;
             // 
             // Frm_CadastraMaterial
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            BackColor = Color.SteelBlue;
+            ClientSize = new Size(789, 651);
+            Controls.Add(pictureBox1);
             Controls.Add(button1);
-            Controls.Add(txt_obs);
-            Controls.Add(label4);
-            Controls.Add(txt_fornecedor);
-            Controls.Add(label3);
-            Controls.Add(txt_valor);
-            Controls.Add(label2);
+            Controls.Add(cb_categoria);
+            Controls.Add(lbl_categoria);
+            Controls.Add(txt_observacao);
+            Controls.Add(lbl_observacao);
             Controls.Add(txt_item);
-            Controls.Add(label1);
+            Controls.Add(lbl_item);
             Name = "Frm_CadastraMaterial";
-            Text = "Frm_CadastraMaterial";
+            Text = "Cadastro de Item";
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Label label1;
-        private TextBox txt_item;
-        private TextBox txt_valor;
-        private Label label2;
-        private TextBox txt_fornecedor;
-        private Label label3;
-        private TextBox txt_obs;
-        private Label label4;
         private Button button1;
+        private ComboBox cb_categoria;
+        private Label lbl_categoria;
+        private TextBox txt_observacao;
+        private Label lbl_observacao;
+        private TextBox txt_item;
+        private Label lbl_item;
+        private PictureBox pictureBox1;
     }
 }

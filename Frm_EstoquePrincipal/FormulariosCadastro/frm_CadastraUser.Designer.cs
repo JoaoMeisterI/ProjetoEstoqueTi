@@ -37,7 +37,7 @@
             txt_senha = new TextBox();
             lbl_senha = new Label();
             lbl_liberacao = new Label();
-            comboBox1 = new ComboBox();
+            cb_liberacao = new ComboBox();
             button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -117,14 +117,14 @@
             lbl_liberacao.TabIndex = 12;
             lbl_liberacao.Text = "Liberação";
             // 
-            // comboBox1
+            // cb_liberacao
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Administrador", "Usuário Padrão" });
-            comboBox1.Location = new Point(12, 496);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(390, 28);
-            comboBox1.TabIndex = 13;
+            cb_liberacao.FormattingEnabled = true;
+            cb_liberacao.Items.AddRange(new object[] { "Administrador", "Usuário Padrão" });
+            cb_liberacao.Location = new Point(12, 496);
+            cb_liberacao.Name = "cb_liberacao";
+            cb_liberacao.Size = new Size(390, 28);
+            cb_liberacao.TabIndex = 13;
             // 
             // button1
             // 
@@ -133,8 +133,9 @@
             button1.Name = "button1";
             button1.Size = new Size(390, 36);
             button1.TabIndex = 14;
-            button1.Text = "Criar Usuário";
+            button1.Text = "Cadastrar Usuário";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // Frm_CadastraUser
             // 
@@ -143,7 +144,7 @@
             BackColor = Color.SteelBlue;
             ClientSize = new Size(789, 651);
             Controls.Add(button1);
-            Controls.Add(comboBox1);
+            Controls.Add(cb_liberacao);
             Controls.Add(lbl_liberacao);
             Controls.Add(txt_senha);
             Controls.Add(lbl_senha);
@@ -154,7 +155,7 @@
             Controls.Add(pictureBox1);
             ForeColor = Color.Tan;
             Name = "Frm_CadastraUser";
-            Text = "Cadastra Usuário";
+            Text = "Cadastro de Usuário";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -170,7 +171,7 @@
         private TextBox txt_senha;
         private Label lbl_senha;
         private Label lbl_liberacao;
-        private ComboBox comboBox1;
+        private ComboBox cb_liberacao;
         private Button button1;
     }
 }
