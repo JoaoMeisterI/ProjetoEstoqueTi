@@ -14,12 +14,12 @@ using EstoqueTI.FuncoesUteis;
 namespace EstoqueTI
 {
     
-    public partial class Frm_CadastraUser : Form
+    public partial class Frm_CadastraUsuario : Form
 
     {
 
         int ID;
-        public Frm_CadastraUser()
+        public Frm_CadastraUsuario()
         {
             InitializeComponent();
         }
@@ -29,8 +29,8 @@ namespace EstoqueTI
             
             try
             {
-                FuncoesUteis.Funcoes buscaId = new Funcoes();
-                int ID = buscaId.BuscarFicharioId("dbo.usuarios");
+                FuncoesUteis.Funcoes FuncoesUteis = new Funcoes();
+                int ID = FuncoesUteis.BuscarFicharioId("dbo.usuarios");
 
                 Unit u = new Unit();
                 u.id = ID += 1;

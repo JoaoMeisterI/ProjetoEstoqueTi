@@ -1,6 +1,6 @@
 ﻿namespace EstoqueTI
 {
-    partial class Frm_CadastraMaterial
+    partial class Frm_CadastraItem
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_CadastraMaterial));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_CadastraItem));
             button1 = new Button();
             cb_categoria = new ComboBox();
             lbl_categoria = new Label();
@@ -49,7 +49,7 @@
             button1.TabIndex = 23;
             button1.Text = "Cadastrar Item";
             button1.UseVisualStyleBackColor = true;
-         
+            button1.Click += button1_Click_1;
             // 
             // cb_categoria
             // 
@@ -117,7 +117,7 @@
             pictureBox1.TabIndex = 24;
             pictureBox1.TabStop = false;
             // 
-            // Frm_CadastraMaterial
+            // Frm_CadastraItem
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -131,7 +131,8 @@
             Controls.Add(lbl_observacao);
             Controls.Add(txt_item);
             Controls.Add(lbl_item);
-            Name = "Frm_CadastraMaterial";
+            Name = "Frm_CadastraItem";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Cadastro de Item";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

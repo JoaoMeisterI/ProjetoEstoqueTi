@@ -85,6 +85,7 @@
             button4.TabIndex = 3;
             button4.Text = "Cadastro de Material";
             button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
             // 
             // button3
             // 
@@ -119,9 +120,12 @@
             button1.TabIndex = 0;
             button1.Text = "Cadastro de Centro de Custo";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // panel2
             // 
+            panel2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panel2.BackColor = SystemColors.GradientActiveCaption;
             panel2.Controls.Add(menuStrip1);
             panel2.Location = new Point(252, 0);
             panel2.Name = "panel2";
@@ -130,13 +134,14 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.BackColor = SystemColors.GradientInactiveCaption;
-            menuStrip1.Dock = DockStyle.Fill;
+            menuStrip1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            menuStrip1.BackColor = SystemColors.GradientActiveCaption;
+            menuStrip1.Dock = DockStyle.None;
             menuStrip1.ImageScalingSize = new Size(20, 20);
             menuStrip1.Items.AddRange(new ToolStripItem[] { movimentoDeEstoqueToolStripMenuItem, consultaDeEstoqueToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(984, 35);
+            menuStrip1.Size = new Size(347, 28);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -144,26 +149,26 @@
             // 
             movimentoDeEstoqueToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { transferirMaterialToolStripMenuItem, receberMaterialToolStripMenuItem });
             movimentoDeEstoqueToolStripMenuItem.Name = "movimentoDeEstoqueToolStripMenuItem";
-            movimentoDeEstoqueToolStripMenuItem.Size = new Size(181, 31);
+            movimentoDeEstoqueToolStripMenuItem.Size = new Size(181, 24);
             movimentoDeEstoqueToolStripMenuItem.Text = "Movimento de estoque ";
             // 
             // transferirMaterialToolStripMenuItem
             // 
             transferirMaterialToolStripMenuItem.Name = "transferirMaterialToolStripMenuItem";
-            transferirMaterialToolStripMenuItem.Size = new Size(224, 26);
+            transferirMaterialToolStripMenuItem.Size = new Size(212, 26);
             transferirMaterialToolStripMenuItem.Text = "Transferir Material";
             // 
             // receberMaterialToolStripMenuItem
             // 
             receberMaterialToolStripMenuItem.Name = "receberMaterialToolStripMenuItem";
-            receberMaterialToolStripMenuItem.Size = new Size(224, 26);
+            receberMaterialToolStripMenuItem.Size = new Size(212, 26);
             receberMaterialToolStripMenuItem.Text = "Receber Material";
             // 
             // consultaDeEstoqueToolStripMenuItem
             // 
             consultaDeEstoqueToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { materiasDisponíveisToolStripMenuItem, historicoDeMovimToolStripMenuItem, historicoDeComprasToolStripMenuItem, custoMaterialToolStripMenuItem });
             consultaDeEstoqueToolStripMenuItem.Name = "consultaDeEstoqueToolStripMenuItem";
-            consultaDeEstoqueToolStripMenuItem.Size = new Size(158, 31);
+            consultaDeEstoqueToolStripMenuItem.Size = new Size(158, 24);
             consultaDeEstoqueToolStripMenuItem.Text = "Consulta de estoque";
             // 
             // materiasDisponíveisToolStripMenuItem
@@ -195,7 +200,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GradientInactiveCaption;
-            ClientSize = new Size(1243, 891);
+            ClientSize = new Size(1235, 891);
             Controls.Add(panel2);
             Controls.Add(panel1);
             MainMenuStrip = menuStrip1;

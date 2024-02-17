@@ -36,7 +36,7 @@ namespace EstoqueTI
             {
                 // INSERT INTO CLIENTE (ID, JSON) VALUES ('000001','{...}')
 
-                var SQL = "INSERT INTO " + tabela + " (id, item,valor,fornecedor,observacao) VALUES ('" + Id + "', '" + item + "', '" + valorItem + "', '" + fornecedor + "', '" + obs + "')";
+                var SQL = "INSERT INTO " + tabela + " (id, item,valor,fornecedor,observacao) VALUES ('" + Id + "', '" + item + "', '" +  "', '" + "', '" + obs + "')";
                 db.SQLCommand(SQL);
                 status = true;
                 mensagem = "Inclusão efetuada com sucesso. Identificador: " + Id;

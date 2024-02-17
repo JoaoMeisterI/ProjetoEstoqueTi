@@ -1,6 +1,6 @@
 ﻿namespace EstoqueTI
 {
-    partial class Frm_CadastraUser
+    partial class Frm_CadastraUsuario
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_CadastraUser));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_CadastraUsuario));
             pictureBox1 = new PictureBox();
             lbl_nome = new Label();
             txt_nome = new TextBox();
@@ -137,7 +137,7 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // Frm_CadastraUser
+            // Frm_CadastraUsuario
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -154,7 +154,8 @@
             Controls.Add(lbl_nome);
             Controls.Add(pictureBox1);
             ForeColor = Color.Tan;
-            Name = "Frm_CadastraUser";
+            Name = "Frm_CadastraUsuario";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Cadastro de Usuário";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
