@@ -1,6 +1,6 @@
 ﻿namespace EstoqueTI.FormulariosCadastro
 {
-    partial class frm_CadastroCC
+    partial class Frm_CadastroCC
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_CadastroCC));
-            button1 = new Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_CadastroCC));
+            btn_cc = new Button();
             lbl_orcamento = new Label();
             txt_descricao = new TextBox();
             lbl_descricao = new Label();
@@ -40,16 +40,16 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // button1
+            // btn_cc
             // 
-            button1.ForeColor = Color.Black;
-            button1.Location = new Point(12, 603);
-            button1.Name = "button1";
-            button1.Size = new Size(390, 36);
-            button1.TabIndex = 23;
-            button1.Text = "Cadastrar Centro de Custo";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            btn_cc.ForeColor = Color.Black;
+            btn_cc.Location = new Point(12, 603);
+            btn_cc.Name = "btn_cc";
+            btn_cc.Size = new Size(390, 36);
+            btn_cc.TabIndex = 23;
+            btn_cc.Text = "Cadastrar Centro de Custo";
+            btn_cc.UseVisualStyleBackColor = true;
+            btn_cc.Click += button1_Click;
             // 
             // lbl_orcamento
             // 
@@ -123,7 +123,7 @@
             ClientSize = new Size(789, 651);
             Controls.Add(txt_orcamento);
             Controls.Add(pictureBox1);
-            Controls.Add(button1);
+            Controls.Add(btn_cc);
             Controls.Add(lbl_orcamento);
             Controls.Add(txt_descricao);
             Controls.Add(lbl_descricao);
@@ -138,7 +138,7 @@
         }
 
         #endregion
-        private Button button1;
+        private Button btn_cc;
         private Label lbl_orcamento;
         private TextBox txt_descricao;
         private Label lbl_descricao;

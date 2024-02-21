@@ -13,9 +13,9 @@ using static EstoqueTI.Classes.CentroCusto;
 
 namespace EstoqueTI.FormulariosCadastro
 {
-    public partial class frm_CadastroCC : Form
+    public partial class Frm_CadastroCC : Form
     {
-        public frm_CadastroCC()
+        public Frm_CadastroCC()
         {
             InitializeComponent();
         }

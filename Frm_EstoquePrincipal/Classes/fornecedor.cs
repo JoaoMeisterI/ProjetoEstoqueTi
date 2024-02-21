@@ -18,10 +18,10 @@ namespace EstoqueTI.Classes
             [Required(ErrorMessage = "Nome é Obrigatória")]
             public string nome { get; set; }
             [Required(ErrorMessage = "Contato é Obrigatório")]
-            public float contato { get; set; }
+            public string contato { get; set; }
 
             public List<string> ListaCamposDB = new List<string>() { "id", "cnpj", "nome", "contato" };
-            public string tabela = "dbo.centrocusto";
+            public string tabela = "dbo.fornecedor";
 
             public void ValidaClasse()
             {
@@ -74,7 +74,7 @@ namespace EstoqueTI.Classes
                 u.id = Convert.ToInt32(dr["id"]);
                 u.cnpj = dr[ListaCamposDB[1]].ToString();
                 u.nome = dr[ListaCamposDB[2]].ToString();
-                u.contato = float.Parse((string)dr[ListaCamposDB[3]]);
+                u.contato = dr[ListaCamposDB[3]].ToString();
 
                 return u;
 

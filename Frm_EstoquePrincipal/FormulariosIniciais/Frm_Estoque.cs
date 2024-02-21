@@ -1,6 +1,7 @@
 //Usa objetos de banco de dados
 using EstoqueTI;
 using EstoqueTI.FormulariosCadastro;
+using EstoqueTI.FormulariosIniciais;
 using System.Data.SqlClient;
 
 namespace Frm_EstoquePrincipal
@@ -11,6 +12,7 @@ namespace Frm_EstoquePrincipal
         public Frm_Estoque()
         {
             InitializeComponent();
+
         }
 
 
@@ -28,7 +30,19 @@ namespace Frm_EstoquePrincipal
 
         private void button1_Click(object sender, EventArgs e)
         {
-            frm_CadastroCC frm = new frm_CadastroCC();
+            Frm_CadastroCC frm = new Frm_CadastroCC();
+            frm.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Frm_CadastroFornecedor frm = new Frm_CadastroFornecedor();
+            frm.Show();
+        }
+
+        private void receberMaterialToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Frm_Recebe frm = new Frm_Recebe();
             frm.Show();
         }
     }

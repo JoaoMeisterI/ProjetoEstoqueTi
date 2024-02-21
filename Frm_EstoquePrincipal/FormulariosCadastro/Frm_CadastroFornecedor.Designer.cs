@@ -28,80 +28,82 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Frm_CadastroFornecedor";
-
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_CadastroCC));
-            button1 = new Button();
-            lbl_orcamento = new Label();
-            txt_descricao = new TextBox();
-            lbl_descricao = new Label();
-            txt_codigo = new TextBox();
-            lbl_codigo = new Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_CadastroFornecedor));
+            btn_fornecedor = new Button();
+            lbl_contato = new Label();
+            txt_nome = new TextBox();
+            lbl_nome = new Label();
+            txt_cnpj = new TextBox();
+            lbl_cnpj = new Label();
+            txt_contato = new TextBox();
             pictureBox1 = new PictureBox();
-            txt_orcamento = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // button1
+            // btn_fornecedor
             // 
-            button1.ForeColor = Color.Black;
-            button1.Location = new Point(12, 603);
-            button1.Name = "button1";
-            button1.Size = new Size(390, 36);
-            button1.TabIndex = 23;
-            button1.Text = "Cadastrar Centro de Custo";
-            button1.UseVisualStyleBackColor = true;
-       
+            btn_fornecedor.ForeColor = Color.Black;
+            btn_fornecedor.Location = new Point(12, 603);
+            btn_fornecedor.Name = "btn_fornecedor";
+            btn_fornecedor.Size = new Size(390, 36);
+            btn_fornecedor.TabIndex = 23;
+            btn_fornecedor.Text = "Cadastrar Fornecedor";
+            btn_fornecedor.UseVisualStyleBackColor = true;
+            btn_fornecedor.Click += button1_Click;
             // 
-            // lbl_orcamento
+            // lbl_contato
             // 
-            lbl_orcamento.AutoSize = true;
-            lbl_orcamento.Font = new Font("Tahoma", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbl_orcamento.ForeColor = SystemColors.ControlLightLight;
-            lbl_orcamento.Location = new Point(12, 443);
-            lbl_orcamento.Name = "lbl_orcamento";
-            lbl_orcamento.Size = new Size(152, 34);
-            lbl_orcamento.TabIndex = 21;
-            lbl_orcamento.Text = "Orçamento";
+            lbl_contato.AutoSize = true;
+            lbl_contato.Font = new Font("Tahoma", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbl_contato.ForeColor = SystemColors.ControlLightLight;
+            lbl_contato.Location = new Point(12, 443);
+            lbl_contato.Name = "lbl_contato";
+            lbl_contato.Size = new Size(111, 34);
+            lbl_contato.TabIndex = 21;
+            lbl_contato.Text = "Contato";
             // 
-            // txt_descricao
+            // txt_nome
             // 
-            txt_descricao.Location = new Point(12, 360);
-            txt_descricao.Name = "txt_descricao";
-            txt_descricao.Size = new Size(390, 27);
-            txt_descricao.TabIndex = 18;
+            txt_nome.Location = new Point(12, 360);
+            txt_nome.Name = "txt_nome";
+            txt_nome.Size = new Size(390, 27);
+            txt_nome.TabIndex = 18;
             // 
-            // lbl_descricao
+            // lbl_nome
             // 
-            lbl_descricao.AutoSize = true;
-            lbl_descricao.Font = new Font("Tahoma", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbl_descricao.ForeColor = SystemColors.ControlLightLight;
-            lbl_descricao.Location = new Point(12, 323);
-            lbl_descricao.Name = "lbl_descricao";
-            lbl_descricao.Size = new Size(134, 34);
-            lbl_descricao.TabIndex = 17;
-            lbl_descricao.Text = "Descrição";
+            lbl_nome.AutoSize = true;
+            lbl_nome.Font = new Font("Tahoma", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbl_nome.ForeColor = SystemColors.ControlLightLight;
+            lbl_nome.Location = new Point(12, 323);
+            lbl_nome.Name = "lbl_nome";
+            lbl_nome.Size = new Size(88, 34);
+            lbl_nome.TabIndex = 17;
+            lbl_nome.Text = "Nome";
             // 
-            // txt_codigo
+            // txt_cnpj
             // 
-            txt_codigo.Location = new Point(12, 231);
-            txt_codigo.Name = "txt_codigo";
-            txt_codigo.Size = new Size(390, 27);
-            txt_codigo.TabIndex = 16;
+            txt_cnpj.Location = new Point(12, 231);
+            txt_cnpj.Name = "txt_cnpj";
+            txt_cnpj.Size = new Size(390, 27);
+            txt_cnpj.TabIndex = 16;
             // 
-            // lbl_codigo
+            // lbl_cnpj
             // 
-            lbl_codigo.AutoSize = true;
-            lbl_codigo.Font = new Font("Tahoma", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbl_codigo.ForeColor = SystemColors.ControlLightLight;
-            lbl_codigo.Location = new Point(12, 194);
-            lbl_codigo.Name = "lbl_codigo";
-            lbl_codigo.Size = new Size(98, 34);
-            lbl_codigo.TabIndex = 15;
-            lbl_codigo.Text = "Código";
+            lbl_cnpj.AutoSize = true;
+            lbl_cnpj.Font = new Font("Tahoma", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbl_cnpj.ForeColor = SystemColors.ControlLightLight;
+            lbl_cnpj.Location = new Point(12, 194);
+            lbl_cnpj.Name = "lbl_cnpj";
+            lbl_cnpj.Size = new Size(71, 34);
+            lbl_cnpj.TabIndex = 15;
+            lbl_cnpj.Text = "Cnpj";
+            // 
+            // txt_contato
+            // 
+            txt_contato.Location = new Point(12, 480);
+            txt_contato.Name = "txt_contato";
+            txt_contato.Size = new Size(390, 27);
+            txt_contato.TabIndex = 25;
             // 
             // pictureBox1
             // 
@@ -110,47 +112,40 @@
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(765, 139);
             pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
-            pictureBox1.TabIndex = 24;
+            pictureBox1.TabIndex = 26;
             pictureBox1.TabStop = false;
             // 
-            // txt_orcamento
-            // 
-            txt_orcamento.Location = new Point(12, 480);
-            txt_orcamento.Name = "txt_orcamento";
-            txt_orcamento.Size = new Size(390, 27);
-            txt_orcamento.TabIndex = 25;
-            // 
-            // frm_CadastroCC
+            // Frm_CadastroFornecedor
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.SteelBlue;
             ClientSize = new Size(789, 651);
-            Controls.Add(txt_orcamento);
             Controls.Add(pictureBox1);
-            Controls.Add(button1);
-            Controls.Add(lbl_orcamento);
-            Controls.Add(txt_descricao);
-            Controls.Add(lbl_descricao);
-            Controls.Add(txt_codigo);
-            Controls.Add(lbl_codigo);
-            Name = "frm_CadastroCC";
+            Controls.Add(txt_contato);
+            Controls.Add(btn_fornecedor);
+            Controls.Add(lbl_contato);
+            Controls.Add(txt_nome);
+            Controls.Add(lbl_nome);
+            Controls.Add(txt_cnpj);
+            Controls.Add(lbl_cnpj);
+            Name = "Frm_CadastroFornecedor";
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Cadastro de Centro de Custo";
+            Text = "Cadastro de Fornecedor";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private Button button1;
-        private Label lbl_orcamento;
-        private TextBox txt_descricao;
-        private Label lbl_descricao;
-        private TextBox txt_codigo;
-        private Label lbl_codigo;
+        private Button btn_fornecedor;
+        private Label lbl_contato;
+        private TextBox txt_nome;
+        private Label lbl_nome;
+        private TextBox txt_cnpj;
+        private Label lbl_cnpj;
+        private TextBox txt_contato;
         private PictureBox pictureBox1;
-        private TextBox txt_orcamento;
     }
 
 }

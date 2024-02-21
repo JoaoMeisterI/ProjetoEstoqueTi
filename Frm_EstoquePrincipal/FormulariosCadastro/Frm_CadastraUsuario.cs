@@ -18,7 +18,7 @@ namespace EstoqueTI
 
     {
 
-        int ID;
+       
         public Frm_CadastraUsuario()
         {
             InitializeComponent();

@@ -97,6 +97,7 @@
             button3.TabIndex = 2;
             button3.Text = "Cadastro de Fornecedor";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // button2
             // 
@@ -155,14 +156,15 @@
             // transferirMaterialToolStripMenuItem
             // 
             transferirMaterialToolStripMenuItem.Name = "transferirMaterialToolStripMenuItem";
-            transferirMaterialToolStripMenuItem.Size = new Size(212, 26);
+            transferirMaterialToolStripMenuItem.Size = new Size(224, 26);
             transferirMaterialToolStripMenuItem.Text = "Transferir Material";
             // 
             // receberMaterialToolStripMenuItem
             // 
             receberMaterialToolStripMenuItem.Name = "receberMaterialToolStripMenuItem";
-            receberMaterialToolStripMenuItem.Size = new Size(212, 26);
+            receberMaterialToolStripMenuItem.Size = new Size(224, 26);
             receberMaterialToolStripMenuItem.Text = "Receber Material";
+            receberMaterialToolStripMenuItem.Click += receberMaterialToolStripMenuItem_Click;
             // 
             // consultaDeEstoqueToolStripMenuItem
             // 
@@ -205,7 +207,7 @@
             Controls.Add(panel1);
             MainMenuStrip = menuStrip1;
             Name = "Frm_Estoque";
-            Text = "Form1";
+            Text = "Tela Principal";
             WindowState = FormWindowState.Maximized;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

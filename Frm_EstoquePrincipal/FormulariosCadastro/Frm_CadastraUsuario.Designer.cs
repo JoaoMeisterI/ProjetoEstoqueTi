@@ -38,7 +38,7 @@
             lbl_senha = new Label();
             lbl_liberacao = new Label();
             cb_liberacao = new ComboBox();
-            button1 = new Button();
+            btn_usuario = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -126,16 +126,16 @@
             cb_liberacao.Size = new Size(390, 28);
             cb_liberacao.TabIndex = 13;
             // 
-            // button1
+            // btn_usuario
             // 
-            button1.ForeColor = Color.Black;
-            button1.Location = new Point(12, 599);
-            button1.Name = "button1";
-            button1.Size = new Size(390, 36);
-            button1.TabIndex = 14;
-            button1.Text = "Cadastrar Usuário";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            btn_usuario.ForeColor = Color.Black;
+            btn_usuario.Location = new Point(12, 599);
+            btn_usuario.Name = "btn_usuario";
+            btn_usuario.Size = new Size(390, 36);
+            btn_usuario.TabIndex = 14;
+            btn_usuario.Text = "Cadastrar Usuário";
+            btn_usuario.UseVisualStyleBackColor = true;
+            btn_usuario.Click += button1_Click;
             // 
             // Frm_CadastraUsuario
             // 
@@ -143,7 +143,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.SteelBlue;
             ClientSize = new Size(789, 651);
-            Controls.Add(button1);
+            Controls.Add(btn_usuario);
             Controls.Add(cb_liberacao);
             Controls.Add(lbl_liberacao);
             Controls.Add(txt_senha);
@@ -173,6 +173,6 @@
         private Label lbl_senha;
         private Label lbl_liberacao;
         private ComboBox cb_liberacao;
-        private Button button1;
+        private Button btn_usuario;
     }
 }
