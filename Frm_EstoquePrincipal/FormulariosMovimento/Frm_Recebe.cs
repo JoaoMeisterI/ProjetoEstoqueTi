@@ -31,15 +31,17 @@ namespace EstoqueTI
 
                 Unit u = new Unit();
                 u.id = ID += 1;
-                u.item = cb_item.Text;
+                string item1 = cb_item.Text;
+                u.item = Unit.BuscaIdItem(item1);
                 u.valor = float.Parse(txt_valor.Text);
-                u.fornecedor = cb_fornecedor.Text;
+                string fornecedor1 = cb_fornecedor.Text;
+                u.fornecedor = Unit.BuscaIdFornecedor(fornecedor1);
                 u.motivo = rb_motivo.Text;
                 u.data = dt_date.Text;
                 u.quantidade = nd_quantidade.Text;
+                
                 u.ValidaClasse();
                 u.IncluirFicharioSQLREL();
-
 
 
 

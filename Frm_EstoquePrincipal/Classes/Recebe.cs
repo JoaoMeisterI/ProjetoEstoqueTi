@@ -23,13 +23,13 @@ namespace EstoqueTI.Classes
             [Required(ErrorMessage = "Motivo é Obrigatório")]
             public string motivo { get; set; }
             [Required(ErrorMessage = "Item é Obrigatório")]
-            public string item { get; set; }
+            public int item { get; set; }
             [Required(ErrorMessage = "Fornecedor é Obrigatório")]
-            public string fornecedor { get; set; }
+            public int fornecedor { get; set; }
             [Required(ErrorMessage = "Quantidade é Obrigatória")]
             public string quantidade { get; set; }
 
-            public List<string> ListaCamposDB = new List<string>() { "id", "data1", "valor", "motivo", "item", "fornecedor", "quantidade" };
+            public List<string> ListaCamposDB = new List<string>() { "id", "data1", "valor", "motivo", "fkitem", "fkfornecedor", "quantidade" };
             public string tabela = "dbo.recebe";
 
            
@@ -106,6 +106,129 @@ namespace EstoqueTI.Classes
 
             }
 
+            public static int BuscaIdItem(string item)
+            {
+                string SQL = $"SELECT id FROM dbo.item WHERE item = '{item}';";
+                string chave = ConfigurationManager.ConnectionStrings["Dbteste"].ConnectionString;
+                int id;
+
+                // Usando um bloco using para garantir que a conexão seja fechada corretamente
+                //Usamos essa questão para fechar corretamente o banco
+                using (SqlConnection connection = new SqlConnection(chave))
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand(SQL, connection);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        // Adiciona cada item ao ComboBox
+                        try 
+                        {
+                            return id = int.Parse(reader["id"].ToString());
+                        }
+                        catch(ValidationException Ex)
+                        {
+                            MessageBox.Show(Ex.Message, "Item não encontrado, digite um ítem válido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            
+                        }
+                        
+                        
+                    }
+                    
+
+                    // Fecha o leitor de dados antes de sair do bloco using
+                    reader.Close();
+                    return 0;
+
+
+                }
+
+            }
+
+            public static int BuscaIdFornecedor(string fornecedor)
+            {
+                string SQL = $"SELECT id FROM dbo.fornecedor WHERE nome = '{fornecedor}';";
+                string chave = ConfigurationManager.ConnectionStrings["Dbteste"].ConnectionString;
+                int id;
+
+                // Usando um bloco using para garantir que a conexão seja fechada corretamente
+                //Usamos essa questão para fechar corretamente o banco
+                using (SqlConnection connection = new SqlConnection(chave))
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand(SQL, connection);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        // Adiciona cada item ao ComboBox
+                        try
+                        {
+                            return id = int.Parse(reader["id"].ToString());
+                        }
+                        catch (ValidationException Ex)
+                        {
+                            MessageBox.Show(Ex.Message, "Fornecedor não encontrado, digite um ítem válido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        }
+
+
+                    }
+
+
+                    // Fecha o leitor de dados antes de sair do bloco using
+                    reader.Close();
+                    return 0;
+
+
+                }
+
+            }
+
+
+            public static void AlteraQuantidade(string fornecedor)
+            {
+                string SQL = $"SELECT id FROM dbo.fornecedor WHERE nome = '{fornecedor}';";
+                string chave = ConfigurationManager.ConnectionStrings["Dbteste"].ConnectionString;
+                int id;
+
+                // Usando um bloco using para garantir que a conexão seja fechada corretamente
+                //Usamos essa questão para fechar corretamente o banco
+                using (SqlConnection connection = new SqlConnection(chave))
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand(SQL, connection);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        // Adiciona cada item ao ComboBox
+                        try
+                        {
+                           id = int.Parse(reader["id"].ToString());
+                        }
+                        catch (ValidationException Ex)
+                        {
+                            MessageBox.Show(Ex.Message, "Fornecedor não encontrado, digite um ítem válido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        }
+
+
+                    }
+
+
+                    // Fecha o leitor de dados antes de sair do bloco using
+                    reader.Close();
+                   
+
+
+                }
+
+            }
 
             #region "FUNÇÕES AUXILIARES"
             //Pegar o conteudo e transformar em insert
@@ -144,8 +267,8 @@ namespace EstoqueTI.Classes
                 u.data = dr[ListaCamposDB[1]].ToString();
                 u.valor = float.Parse(dr[ListaCamposDB[2]].ToString());
                 u.motivo = dr[ListaCamposDB[3]].ToString();
-                u.item = dr[ListaCamposDB[4]].ToString();
-                u.fornecedor = dr[ListaCamposDB[5]].ToString();
+                u.item = int.Parse(dr[ListaCamposDB[4]].ToString());
+                u.fornecedor = int.Parse(dr[ListaCamposDB[5]].ToString());
                 u.quantidade = dr[ListaCamposDB[6]].ToString();
 
                 return u;
