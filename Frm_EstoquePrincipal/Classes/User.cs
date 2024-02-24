@@ -12,22 +12,22 @@ namespace EstoqueTI.Classes
     {
         public class Unit
         {
-            public int id { get; set; }
             [Required(ErrorMessage = "Nome é Obrigatório")]
             public string nome { get; set; }
+
             [Required(ErrorMessage = "Usuário é Obrigatório")]
             public string usuario { get; set; }
-            
+
             [Required(ErrorMessage = "Senha é Obrigatório")]
             [StringLength(30, MinimumLength = 8, ErrorMessage = "A senha deve ter no mínimo 8 caracteres e no máximo 30.")]
             public string senha { get; set; }
+
             [Required(ErrorMessage = "Liberação é Obrigatório")]
             public string liberacao { get; set; }
 
             public bool logado = false;
 
-
-            public List<string> ListaCamposDB = new List<string>() { "id", "nome", "usuario", "senha", "liberacao" };
+            public List<string> ListaCamposDB = new List<string>() { "nome", "usuario", "senha", "liberacao" };
             public string tabela = "dbo.usuario";
 
             public void ValidaClasse()
@@ -55,40 +55,33 @@ namespace EstoqueTI.Classes
                 string SQL;
 
                 SQL = $@"INSERT INTO {tabela}
-            ({ListaCamposDB[0]}, {ListaCamposDB[1]}, {ListaCamposDB[2]}, {ListaCamposDB[3]}, {ListaCamposDB[4]}) VALUES ('";
-                SQL += this.id + "', '" + this.nome + "', '" + this.usuario + "', '" + this.senha + "', '" + this.liberacao + "')";
+            ({ListaCamposDB[0]}, {ListaCamposDB[1]}, {ListaCamposDB[2]}, {ListaCamposDB[3]}) VALUES ('";
+                SQL += "'" + this.nome + "', '" + this.usuario + "', '" + this.senha + "', '" + this.liberacao + "')";
                 return SQL;
             }
 
 
-            public string ToUpdate(int Id)
+            public string ToUpdate(int id)
             {
-
                 string SQL;
                 SQL = $@"UPDATE {tabela} SET ";
-                SQL += $"{ListaCamposDB[1]} = '" + this.nome + "',";
-                SQL += $"{ListaCamposDB[2]} = '" + this.usuario + "',";
-                SQL += $"{ListaCamposDB[3]} = '" + this.senha + "',";
-                SQL += $"{ListaCamposDB[4]}  = '" + this.liberacao + "'";
-                SQL += " WHERE id = '" + this.id + "';";
-
-
+                SQL += $"{ListaCamposDB[0]} = '" + this.nome + "',";
+                SQL += $"{ListaCamposDB[1]} = '" + this.usuario + "',";
+                SQL += $"{ListaCamposDB[2]} = '" + this.senha + "',";
+                SQL += $"{ListaCamposDB[3]} = '" + this.liberacao + "'";
+                SQL += $" WHERE id = {id};";
                 return SQL;
             }
 
             public Unit DataRowToUnit(DataRow dr)
             {
                 Unit u = new Unit();
-                u.id = Convert.ToInt32(dr["id"]);
-                u.nome = dr[ListaCamposDB[1]].ToString();
-                u.usuario = dr[ListaCamposDB[2]].ToString();
-                u.senha = dr[ListaCamposDB[3]].ToString();
-                u.liberacao = dr[ListaCamposDB[4]].ToString();
+                u.nome = dr[ListaCamposDB[0]].ToString();
+                u.usuario = dr[ListaCamposDB[1]].ToString();
+                u.senha = dr[ListaCamposDB[2]].ToString();
+                u.liberacao = dr[ListaCamposDB[3]].ToString();
                 return u;
-
-
             }
-
             #endregion
 
 
@@ -106,7 +99,7 @@ namespace EstoqueTI.Classes
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Inclusão não permitida. Identificador: " + this.id + ", erro: " + ex.Message);
+                    throw new Exception("Inclusão não permitida. Erro: " + ex.Message);
                 }
 
             }
@@ -122,7 +115,7 @@ namespace EstoqueTI.Classes
                     {
                         db.Close();
                         throw new Exception("Usuário Não Existe: " + user);
-                        
+
                     }
                     else
                     {
@@ -132,59 +125,58 @@ namespace EstoqueTI.Classes
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Erro ao buscar o conteúdo do identificador: " + ex.Message);
+                    throw new Exception("Erro ao buscar o conteúdo: " + ex.Message);
                 }
 
             }
 
-            public void AlterarFicharioSQLREL()
+            public void AlterarFicharioSQLREL(int id)
             {
                 try
                 {
-                    string SQL = $"SELECT * FROM {tabela} WHERE Id = '" + this.id + "'";
+                    string SQL = $"SELECT * FROM {tabela} WHERE id = {id}";
                     var db = new SqlClassServer();
                     var Dt = db.SQLQuery(SQL);
                     if (Dt.Rows.Count == 0)
                     {
                         db.Close();
-                        throw new Exception("Indentificador não existente: " + this.id);
+                        throw new Exception("Identificador não existente: " + id);
                     }
                     else
                     {
-                        SQL = this.ToUpdate(this.id);
+                        SQL = this.ToUpdate(id);
                         db.SQLCommand(SQL);
                         db.Close();
                     }
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Erro ao alterar o conteúdo do identificador: " + ex.Message);
+                    throw new Exception("Erro ao alterar o conteúdo: " + ex.Message);
                 }
             }
 
-            public void ApagarFicharioSQLREL()
+            public void ApagarFicharioSQLREL(int id)
             {
                 try
                 {
-                    string SQL = $"SELECT * FROM {tabela} WHERE Id = '" + this.id + "'";
+                    string SQL = $"SELECT * FROM {tabela} WHERE id = {id}";
                     var db = new SqlClassServer();
-                    //Usando o db.SQLQurey para validar se o cliente existe
                     var Dt = db.SQLQuery(SQL);
                     if (Dt.Rows.Count == 0)
                     {
                         db.Close();
-                        throw new Exception("Indentificador não existente: " + this.id);
+                        throw new Exception("Identificador não existente: " + id);
                     }
                     else
                     {
-                        SQL = $"DELETE FROM {tabela} WHERE Id = '" + this.id + "'";
+                        SQL = $"DELETE FROM {tabela} WHERE id = {id}";
                         db.SQLCommand(SQL);
                         db.Close();
                     }
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Erro ao excluir o conteúdo do identificador: " + ex.Message);
+                    throw new Exception("Erro ao excluir o conteúdo: " + ex.Message);
                 }
             }
 
@@ -198,24 +190,16 @@ namespace EstoqueTI.Classes
                     var Dt = db.SQLQuery(SQL);
                     for (int i = 0; i <= Dt.Rows.Count - 1; i++)
                     {
-                        ListaBusca.Add(new List<string> { Dt.Rows[i][ListaCamposDB[0]].ToString(), Dt.Rows[i][ListaCamposDB[1]].ToString(), Dt.Rows[i][ListaCamposDB[2]].ToString(), Dt.Rows[i][ListaCamposDB[3]].ToString(), Dt.Rows[i][ListaCamposDB[4]].ToString() });
+                        ListaBusca.Add(new List<string> { Dt.Rows[i][ListaCamposDB[0]].ToString(), Dt.Rows[i][ListaCamposDB[1]].ToString(), Dt.Rows[i][ListaCamposDB[2]].ToString(), Dt.Rows[i][ListaCamposDB[3]].ToString() });
                     }
                     return ListaBusca;
-
-
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Conexão com a base ocasionou um erro: " + ex.Message);
-
-
+                    throw new Exception("Erro ao buscar o conteúdo: " + ex.Message);
                 }
-
-                #endregion
             }
+            #endregion
         }
-
     }
-
 }
-

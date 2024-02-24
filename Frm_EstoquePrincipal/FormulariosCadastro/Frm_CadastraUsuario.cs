@@ -29,11 +29,10 @@ namespace EstoqueTI
             
             try
             {
-                FuncoesUteis.Funcoes FuncoesUteis = new Funcoes();
-                int ID = FuncoesUteis.BuscarFicharioId("dbo.usuarios");
-
+               
+                
                 Unit u = new Unit();
-                u.id = ID += 1;
+                
                 u.nome = txt_nome.Text;
                 u.usuario = txt_usuario.Text;
                 u.senha = txt_senha.Text;

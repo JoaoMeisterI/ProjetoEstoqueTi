@@ -27,7 +27,7 @@ namespace EstoqueTI
             try
             {
                 FuncoesUteis.Funcoes FuncoesUteis = new Funcoes();
-                int ID = FuncoesUteis.BuscarFicharioId("dbo.recebe");
+                int ID = FuncoesUteis.BuscarFicharioId("recebe");
 
                 Unit u = new Unit();
                 u.id = ID += 1;
@@ -38,10 +38,15 @@ namespace EstoqueTI
                 u.fornecedor = Unit.BuscaIdFornecedor(fornecedor1);
                 u.motivo = rb_motivo.Text;
                 u.data = dt_date.Text;
-                u.quantidade = nd_quantidade.Text;
+                u.quantidade = int.Parse((nd_quantidade.Text));
                 
                 u.ValidaClasse();
+
+                Unit.AlteraQuantidade(u.item, u.quantidade);
+
                 u.IncluirFicharioSQLREL();
+
+                
 
 
 

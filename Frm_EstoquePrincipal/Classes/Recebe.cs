@@ -27,7 +27,7 @@ namespace EstoqueTI.Classes
             [Required(ErrorMessage = "Fornecedor é Obrigatório")]
             public int fornecedor { get; set; }
             [Required(ErrorMessage = "Quantidade é Obrigatória")]
-            public string quantidade { get; set; }
+            public int quantidade { get; set; }
 
             public List<string> ListaCamposDB = new List<string>() { "id", "data1", "valor", "motivo", "fkitem", "fkfornecedor", "quantidade" };
             public string tabela = "dbo.recebe";
@@ -189,46 +189,44 @@ namespace EstoqueTI.Classes
             }
 
 
-            public static void AlteraQuantidade(string fornecedor)
+            public static void AlteraQuantidade(int id, int quantidadeRecebe)
             {
-                string SQL = $"SELECT id FROM dbo.fornecedor WHERE nome = '{fornecedor}';";
+                string SQL = $"UPDATE dbo.item SET quantidade = quantidade + {quantidadeRecebe} WHERE id = {id}";
                 string chave = ConfigurationManager.ConnectionStrings["Dbteste"].ConnectionString;
-                int id;
 
-                // Usando um bloco using para garantir que a conexão seja fechada corretamente
-                //Usamos essa questão para fechar corretamente o banco
-                using (SqlConnection connection = new SqlConnection(chave))
+                try
                 {
-                    connection.Open();
-
-                    SqlCommand command = new SqlCommand(SQL, connection);
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
+                    using (SqlConnection connection = new SqlConnection(chave))
                     {
-                        // Adiciona cada item ao ComboBox
-                        try
+                        connection.Open();
+
+                        SqlCommand command = new SqlCommand(SQL, connection);
+                        // Utilize ExecuteNonQuery para instruções que não retornam dados
+                        //Quando for update usa esse ExecuteNonQuery
+                       
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        // Verificar se alguma linha foi afetada
+                        if (rowsAffected == 0)
                         {
-                           id = int.Parse(reader["id"].ToString());
+                            throw new Exception("Nenhuma linha foi afetada pela operação de atualização.");
                         }
-                        catch (ValidationException Ex)
-                        {
-                            MessageBox.Show(Ex.Message, "Fornecedor não encontrado, digite um ítem válido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                        }
-
-
                     }
-
-
-                    // Fecha o leitor de dados antes de sair do bloco using
-                    reader.Close();
-                   
-
-
                 }
-
+                //Catch relacionado a exceção no sql
+                catch (SqlException ex)
+                {
+                    // Tratar exceções específicas do SQL Server
+                    // Pode ser útil para identificar problemas específicos com o banco de dados
+                    throw new Exception("Erro ao executar a instrução SQL.", ex);
+                }
+                catch (Exception ex)
+                {
+                    // Capturar outras exceções não tratadas
+                    throw new Exception("Erro para realizar a alteração de quantidade", ex);
+                }
             }
+
 
             #region "FUNÇÕES AUXILIARES"
             //Pegar o conteudo e transformar em insert
@@ -269,7 +267,7 @@ namespace EstoqueTI.Classes
                 u.motivo = dr[ListaCamposDB[3]].ToString();
                 u.item = int.Parse(dr[ListaCamposDB[4]].ToString());
                 u.fornecedor = int.Parse(dr[ListaCamposDB[5]].ToString());
-                u.quantidade = dr[ListaCamposDB[6]].ToString();
+                u.quantidade = int.Parse(dr[ListaCamposDB[6]].ToString());
 
                 return u;
 

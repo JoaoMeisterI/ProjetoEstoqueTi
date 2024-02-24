@@ -16,7 +16,7 @@ public class Funcoes()
         try
         {
             string SQL = "SELECT TOP (1) [id] " +
-             "FROM [EstoqueTi].[dbo].[Usuario] " +
+             $"FROM [EstoqueTi].[dbo].[{tabela}] " +
              "ORDER BY id DESC";
             var db = new SqlClassServer();
             var Dt = db.SQLQuery(SQL);
@@ -28,7 +28,7 @@ public class Funcoes()
             else
             {
                 Unit u = this.DataRowToUnit(Dt.Rows[0]);
-                return u.id;
+                return 1;
 
 
             }
@@ -45,7 +45,7 @@ public class Funcoes()
     public Unit DataRowToUnit(DataRow dr)
     {
         Unit u = new Unit();
-        u.id = Convert.ToInt32(dr["id"]);
+      
        
         return u;
 
