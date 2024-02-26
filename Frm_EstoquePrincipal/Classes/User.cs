@@ -55,7 +55,7 @@ namespace EstoqueTI.Classes
                 string SQL;
 
                 SQL = $@"INSERT INTO {tabela}
-            ({ListaCamposDB[0]}, {ListaCamposDB[1]}, {ListaCamposDB[2]}, {ListaCamposDB[3]}) VALUES ('";
+                ({ListaCamposDB[0]}, {ListaCamposDB[1]}, {ListaCamposDB[2]}, {ListaCamposDB[3]}) VALUES (";
                 SQL += "'" + this.nome + "', '" + this.usuario + "', '" + this.senha + "', '" + this.liberacao + "')";
                 return SQL;
             }

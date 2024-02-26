@@ -8,14 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace EstoqueTI.Classes
 {
     public class Recebe
     {
         public class Unit
         {
-            public int id { get; set; }
+            // Removido: public int id { get; set; }
+
             [Required(ErrorMessage = "Data é Obrigatória")]
             public string data { get; set; }
             [Required(ErrorMessage = "Valor é Obrigatório")]
@@ -29,10 +29,8 @@ namespace EstoqueTI.Classes
             [Required(ErrorMessage = "Quantidade é Obrigatória")]
             public int quantidade { get; set; }
 
-            public List<string> ListaCamposDB = new List<string>() { "id", "data1", "valor", "motivo", "fkitem", "fkfornecedor", "quantidade" };
+            public List<string> ListaCamposDB = new List<string>() {"data1", "valor", "motivo", "fkitem", "fkfornecedor", "quantidade" };
             public string tabela = "dbo.recebe";
-
-           
 
             public void ValidaClasse()
             {
@@ -40,7 +38,7 @@ namespace EstoqueTI.Classes
                 List<ValidationResult> results = new List<ValidationResult>();
                 bool isValid = Validator.TryValidateObject(this, context, results, true);
 
-                if (isValid == false)
+                if (!isValid)
                 {
                     StringBuilder sbrErrors = new StringBuilder();
                     foreach (var validationResult in results)
@@ -56,8 +54,6 @@ namespace EstoqueTI.Classes
                 string SQL = "SELECT item FROM dbo.item";
                 string chave = ConfigurationManager.ConnectionStrings["Dbteste"].ConnectionString;
 
-                // Usando um bloco using para garantir que a conexão seja fechada corretamente
-                //Usamos essa questão para fechar corretamente o banco
                 using (SqlConnection connection = new SqlConnection(chave))
                 {
                     connection.Open();
@@ -67,25 +63,18 @@ namespace EstoqueTI.Classes
 
                     while (reader.Read())
                     {
-                        // Adiciona cada item ao ComboBox
                         cb.Items.Add(reader["item"].ToString());
                     }
 
-                    // Fecha o leitor de dados antes de sair do bloco using
                     reader.Close();
-
                 }
-
             }
-
 
             public static void PreencherComboBoxFornecedores(ComboBox cb)
             {
                 string SQL = "SELECT nome FROM dbo.fornecedor";
                 string chave = ConfigurationManager.ConnectionStrings["Dbteste"].ConnectionString;
 
-                // Usando um bloco using para garantir que a conexão seja fechada corretamente
-                //Usamos essa questão para fechar corretamente o banco
                 using (SqlConnection connection = new SqlConnection(chave))
                 {
                     connection.Open();
@@ -95,15 +84,11 @@ namespace EstoqueTI.Classes
 
                     while (reader.Read())
                     {
-                        // Adiciona cada item ao ComboBox
                         cb.Items.Add(reader["nome"].ToString());
                     }
 
-                    // Fecha o leitor de dados antes de sair do bloco using
                     reader.Close();
-
                 }
-
             }
 
             public static int BuscaIdItem(string item)
@@ -112,8 +97,6 @@ namespace EstoqueTI.Classes
                 string chave = ConfigurationManager.ConnectionStrings["Dbteste"].ConnectionString;
                 int id;
 
-                // Usando um bloco using para garantir que a conexão seja fechada corretamente
-                //Usamos essa questão para fechar corretamente o banco
                 using (SqlConnection connection = new SqlConnection(chave))
                 {
                     connection.Open();
@@ -123,28 +106,19 @@ namespace EstoqueTI.Classes
 
                     while (reader.Read())
                     {
-                        // Adiciona cada item ao ComboBox
-                        try 
+                        try
                         {
                             return id = int.Parse(reader["id"].ToString());
                         }
-                        catch(ValidationException Ex)
+                        catch (ValidationException Ex)
                         {
                             MessageBox.Show(Ex.Message, "Item não encontrado, digite um ítem válido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            
                         }
-                        
-                        
                     }
-                    
 
-                    // Fecha o leitor de dados antes de sair do bloco using
                     reader.Close();
                     return 0;
-
-
                 }
-
             }
 
             public static int BuscaIdFornecedor(string fornecedor)
@@ -153,8 +127,6 @@ namespace EstoqueTI.Classes
                 string chave = ConfigurationManager.ConnectionStrings["Dbteste"].ConnectionString;
                 int id;
 
-                // Usando um bloco using para garantir que a conexão seja fechada corretamente
-                //Usamos essa questão para fechar corretamente o banco
                 using (SqlConnection connection = new SqlConnection(chave))
                 {
                     connection.Open();
@@ -164,7 +136,6 @@ namespace EstoqueTI.Classes
 
                     while (reader.Read())
                     {
-                        // Adiciona cada item ao ComboBox
                         try
                         {
                             return id = int.Parse(reader["id"].ToString());
@@ -172,22 +143,13 @@ namespace EstoqueTI.Classes
                         catch (ValidationException Ex)
                         {
                             MessageBox.Show(Ex.Message, "Fornecedor não encontrado, digite um ítem válido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                         }
-
-
                     }
 
-
-                    // Fecha o leitor de dados antes de sair do bloco using
                     reader.Close();
                     return 0;
-
-
                 }
-
             }
-
 
             public static void AlteraQuantidade(int id, int quantidadeRecebe)
             {
@@ -201,59 +163,50 @@ namespace EstoqueTI.Classes
                         connection.Open();
 
                         SqlCommand command = new SqlCommand(SQL, connection);
-                        // Utilize ExecuteNonQuery para instruções que não retornam dados
-                        //Quando for update usa esse ExecuteNonQuery
-                       
                         int rowsAffected = command.ExecuteNonQuery();
 
-                        // Verificar se alguma linha foi afetada
                         if (rowsAffected == 0)
                         {
                             throw new Exception("Nenhuma linha foi afetada pela operação de atualização.");
                         }
                     }
                 }
-                //Catch relacionado a exceção no sql
                 catch (SqlException ex)
                 {
-                    // Tratar exceções específicas do SQL Server
-                    // Pode ser útil para identificar problemas específicos com o banco de dados
                     throw new Exception("Erro ao executar a instrução SQL.", ex);
                 }
                 catch (Exception ex)
                 {
-                    // Capturar outras exceções não tratadas
                     throw new Exception("Erro para realizar a alteração de quantidade", ex);
                 }
             }
 
-
             #region "FUNÇÕES AUXILIARES"
-            //Pegar o conteudo e transformar em insert
             public string ToInsert()
             {
-                string SQL;
+               
 
-                SQL = $@"INSERT INTO {tabela}
-                ({ListaCamposDB[0]}, {ListaCamposDB[1]}, {ListaCamposDB[2]}, {ListaCamposDB[3]}, {ListaCamposDB[4]}, {ListaCamposDB[5]}, {ListaCamposDB[6]}) VALUES ('";
-                SQL += this.id + "', '" + this.data + "', '" + this.valor + "', '" + this.motivo + "', '" + this.item + "', '" + this.fornecedor + "', '" + this.quantidade + "')";
+                string SQL = $@"INSERT INTO {tabela} 
+                ({ListaCamposDB[0]}, {ListaCamposDB[1]}, {ListaCamposDB[2]}, {ListaCamposDB[3]}, {ListaCamposDB[4]}, {ListaCamposDB[5]}) 
+                VALUES (
+                '{this.data}', '{this.valor}', '{this.motivo}', '{this.item}', '{this.fornecedor}', '{this.quantidade}')";
+
                 return SQL;
+
             }
 
 
-            public string ToUpdate(int Id)
+            public string ToUpdate(int id)
             {
-
                 string SQL;
                 SQL = $@"UPDATE {tabela} SET ";
-                SQL += $"{ListaCamposDB[1]} = '" + this.data + "',";
-                SQL += $"{ListaCamposDB[2]} = '" + this.valor + "',";
-                SQL += $"{ListaCamposDB[3]} = '" + this.motivo + "',";
-                SQL += $"{ListaCamposDB[4]} = '" + this.item + "',";
-                SQL += $"{ListaCamposDB[5]} = '" + this.fornecedor + "',";
-                SQL += $"{ListaCamposDB[6]} = '" + this.quantidade + "'";
-                SQL += " WHERE id = '" + this.id + "';";
-
+                SQL += $"{ListaCamposDB[0]} = '" + this.data + "',";
+                SQL += $"{ListaCamposDB[1]} = '" + this.valor + "',";
+                SQL += $"{ListaCamposDB[2]} = '" + this.motivo + "',";
+                SQL += $"{ListaCamposDB[3]} = '" + this.item + "',";
+                SQL += $"{ListaCamposDB[4]} = '" + this.fornecedor + "',";
+                SQL += $"{ListaCamposDB[5]} = '" + this.quantidade + "'";
+                SQL += " WHERE id = '" + id + "';";
 
                 return SQL;
             }
@@ -261,7 +214,7 @@ namespace EstoqueTI.Classes
             public Unit DataRowToUnit(DataRow dr)
             {
                 Unit u = new Unit();
-                u.id = Convert.ToInt32(dr["id"]);
+
                 u.data = dr[ListaCamposDB[1]].ToString();
                 u.valor = float.Parse(dr[ListaCamposDB[2]].ToString());
                 u.motivo = dr[ListaCamposDB[3]].ToString();
@@ -270,12 +223,9 @@ namespace EstoqueTI.Classes
                 u.quantidade = int.Parse(dr[ListaCamposDB[6]].ToString());
 
                 return u;
-
-
             }
 
             #endregion
-
 
             #region "Inserindo o Sql das funções auxiliares no Db"
             public void IncluirFicharioSQLREL()
@@ -287,26 +237,24 @@ namespace EstoqueTI.Classes
                     var db = new SqlClassServer();
                     db.SQLCommand(SQL);
                     db.Close();
-
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Inclusão não permitida. Identificador: " + this.id + ", erro: " + ex.Message);
+                    throw new Exception("Inclusão não permitida. Identificador: {id}, erro: " + ex.Message);
                 }
-
             }
 
-            public Unit BuscarFicharioSQLREL(int Id)
+            public Unit BuscarFicharioSQLREL(int id)
             {
                 try
                 {
-                    string SQL = $"SELECT * FROM {tabela} WHERE Id = '" + Id + "'";
+                    string SQL = $"SELECT * FROM {tabela} WHERE Id = '" + id + "'";
                     var db = new SqlClassServer();
                     var Dt = db.SQLQuery(SQL);
                     if (Dt.Rows.Count == 0)
                     {
                         db.Close();
-                        throw new Exception("Indentificador não existente: " + Id);
+                        throw new Exception("Indentificador não existente: " + id);
                     }
                     else
                     {
@@ -318,24 +266,23 @@ namespace EstoqueTI.Classes
                 {
                     throw new Exception("Erro ao buscar o conteúdo do identificador: " + ex.Message);
                 }
-
             }
 
-            public void AlterarFicharioSQLREL()
+            public void AlterarFicharioSQLREL(int id)
             {
                 try
                 {
-                    string SQL = $"SELECT * FROM {tabela} WHERE Id = '" + this.id + "'";
+                    string SQL = $"SELECT * FROM {tabela} WHERE Id = '" + id + "'";
                     var db = new SqlClassServer();
                     var Dt = db.SQLQuery(SQL);
                     if (Dt.Rows.Count == 0)
                     {
                         db.Close();
-                        throw new Exception("Indentificador não existente: " + this.id);
+                        throw new Exception("Indentificador não existente: " + id);
                     }
                     else
                     {
-                        SQL = this.ToUpdate(this.id);
+                        SQL = this.ToUpdate(id);
                         db.SQLCommand(SQL);
                         db.Close();
                     }
@@ -346,22 +293,21 @@ namespace EstoqueTI.Classes
                 }
             }
 
-            public void ApagarFicharioSQLREL()
+            public void ApagarFicharioSQLREL(int id)
             {
                 try
                 {
-                    string SQL = $"SELECT * FROM {tabela} WHERE Id = '" + this.id + "'";
+                    string SQL = $"SELECT * FROM {tabela} WHERE Id = '" + id + "'";
                     var db = new SqlClassServer();
-                    //Usando o db.SQLQurey para validar se o cliente existe
                     var Dt = db.SQLQuery(SQL);
                     if (Dt.Rows.Count == 0)
                     {
                         db.Close();
-                        throw new Exception("Indentificador não existente: " + this.id);
+                        throw new Exception("Indentificador não existente: " + id);
                     }
                     else
                     {
-                        SQL = $"DELETE FROM {tabela} WHERE Id = '" + this.id + "'";
+                        SQL = $"DELETE FROM {tabela} WHERE Id = '" + id + "'";
                         db.SQLCommand(SQL);
                         db.Close();
                     }
@@ -385,20 +331,13 @@ namespace EstoqueTI.Classes
                         ListaBusca.Add(new List<string> { Dt.Rows[i][ListaCamposDB[0]].ToString(), Dt.Rows[i][ListaCamposDB[1]].ToString(), Dt.Rows[i][ListaCamposDB[2]].ToString(), Dt.Rows[i][ListaCamposDB[3]].ToString(), Dt.Rows[i][ListaCamposDB[4]].ToString(), Dt.Rows[i][ListaCamposDB[5]].ToString(), Dt.Rows[i][ListaCamposDB[6]].ToString() });
                     }
                     return ListaBusca;
-
-
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Conexão com a base ocasionou um erro: " + ex.Message);
-
-
                 }
-
-                #endregion
             }
+            #endregion
         }
-
-
     }
 }

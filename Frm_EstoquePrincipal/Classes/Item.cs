@@ -12,8 +12,6 @@ namespace EstoqueTI.Classes
     {
         public class Unit
         {
-            public int id { get; set; }
-
             [Required(ErrorMessage = "Nome do item é obrigatório")]
             public string nomeItem { get; set; }
 
@@ -23,7 +21,7 @@ namespace EstoqueTI.Classes
             [StringLength(100, ErrorMessage = "A observação não pode ter mais de 100 caracteres")]
             public string observacao { get; set; }
 
-            public List<string> ListaCamposDB = new List<string>() { "id", "item", "categoria", "observacao" };
+            public List<string> ListaCamposDB = new List<string>() { "item", "categoria", "observacao" };
             public string tabela = "dbo.item";
 
             // "CRUD DO FICHARIO DO DB SQL SERVER"
@@ -43,34 +41,10 @@ namespace EstoqueTI.Classes
                     throw new ValidationException(sbrErrors.ToString());
                 }
             }
-            public void incluirFicharioSql(string tabela)
-            {
-                FicharioSqlServer fc = new FicharioSqlServer(tabela);
-                if (fc.status)
-                {
-                    fc.Incluir(id, nomeItem, categoria, observacao);
-                    if (!fc.status)
-                    {
-                        throw new Exception(fc.mensagem);
-                    }
-                }
-                else
-                {
-                    throw new Exception(fc.mensagem);
-                }
-            }
 
-            public List<string> buscarFicharioSql(int id, string tabela)
-            {
-                FicharioSqlServer fc = new FicharioSqlServer(tabela);
-                if (fc.status)
-                {
-                    List<string> ListaDb = fc.Buscar(id);
-                    return ListaDb;
-                }
-                return null;
-            }
+           
 
+     
 
             //"CRUD DB RELACIONAL"
 
@@ -81,8 +55,8 @@ namespace EstoqueTI.Classes
                 string SQL;
 
                 SQL = $@"INSERT INTO {tabela}
-            ({ListaCamposDB[0]}, {ListaCamposDB[1]}, {ListaCamposDB[2]}, {ListaCamposDB[3]}) VALUES ('";
-                SQL += id + "', '" + nomeItem + "', '" + categoria + "', '" + observacao + "')";
+            ({ListaCamposDB[0]}, {ListaCamposDB[1]}, {ListaCamposDB[2]}) VALUES ('";
+                SQL += nomeItem + "', '" + categoria + "', '" + observacao + "')";
                 return SQL;
             }
 
@@ -92,11 +66,10 @@ namespace EstoqueTI.Classes
 
                 string SQL;
                 SQL = $@"UPDATE {tabela} SET ";
-                SQL += $"{ListaCamposDB[1]} = '" + nomeItem + "',";
-                SQL += $"{ListaCamposDB[2]} = '" + categoria + "',";
-                SQL += $"{ListaCamposDB[3]}  = '" + observacao + "'";
-                SQL += " WHERE id = '" + id + "';";
-
+                SQL += $"{ListaCamposDB[0]} = '" + nomeItem + "',";
+                SQL += $"{ListaCamposDB[1]} = '" + categoria + "',";
+                SQL += $"{ListaCamposDB[2]}  = '" + observacao + "'";
+                SQL += " WHERE id = '" + Id + "';";
 
                 return SQL;
             }
@@ -104,13 +77,10 @@ namespace EstoqueTI.Classes
             public Unit DataRowToUnit(DataRow dr)
             {
                 Unit u = new Unit();
-                u.id = Convert.ToInt32(dr["id"]);
-                u.nomeItem = dr[ListaCamposDB[1]].ToString();
-                u.categoria = dr[ListaCamposDB[2]].ToString();
-                u.observacao = dr[ListaCamposDB[3]].ToString();
+                u.nomeItem = dr[ListaCamposDB[0]].ToString();
+                u.categoria = dr[ListaCamposDB[1]].ToString();
+                u.observacao = dr[ListaCamposDB[2]].ToString();
                 return u;
-
-
             }
 
             #endregion
@@ -126,13 +96,11 @@ namespace EstoqueTI.Classes
                     var db = new SqlClassServer();
                     db.SQLCommand(SQL);
                     db.Close();
-
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Inclusão não permitida. Identificador: " + id + ", erro: " + ex.Message);
+                    throw new Exception("Inclusão não permitida. Identificador: erro: " + ex.Message);
                 }
-
             }
 
             public Unit BuscarFicharioSQLREL(int Id)
@@ -157,10 +125,9 @@ namespace EstoqueTI.Classes
                 {
                     throw new Exception("Erro ao buscar o conteúdo do identificador: " + ex.Message);
                 }
-
             }
 
-            public void AlterarFicharioSQLREL()
+            public void AlterarFicharioSQLREL(int id)
             {
                 try
                 {
@@ -185,7 +152,7 @@ namespace EstoqueTI.Classes
                 }
             }
 
-            public void ApagarFicharioSQLREL()
+            public void ApagarFicharioSQLREL(int id)
             {
                 try
                 {
@@ -224,7 +191,6 @@ namespace EstoqueTI.Classes
                         ListaBusca.Add(new List<string> { Dt.Rows[i][ListaCamposDB[0]].ToString(), Dt.Rows[i][ListaCamposDB[1]].ToString(), Dt.Rows[i][ListaCamposDB[2]].ToString(), Dt.Rows[i][ListaCamposDB[3]].ToString(), Dt.Rows[i][ListaCamposDB[4]].ToString() });
                     }
                     return ListaBusca;
-
                 }
                 catch (Exception ex)
                 {
@@ -233,81 +199,6 @@ namespace EstoqueTI.Classes
             }
 
             #endregion
-
-
-
         }
-
     }
-
 }
-//Agora já consegue jogar no código
-
-
-
-
-
-
-
-//public void AlterarFicharioSQL(string conexao)
-//{
-//    string clienteJson = Cliente.SerializedClassUnit(this);
-//    FicharioSQLServer F = new FicharioSQLServer(conexao);
-//    if (F.status)
-//    {
-//        F.Alterar(this.Id, clienteJson);
-//        if (!(F.status))
-//        {
-//            throw new Exception(F.mensagem);
-//        }
-//    }
-//    else
-//    {
-//        throw new Exception(F.mensagem);
-//    }
-//}
-
-//public void ApagarFicharioSQL(string conexao)
-//{
-//    FicharioSQLServer F = new FicharioSQLServer(conexao);
-//    if (F.status)
-//    {
-//        F.Apagar(this.Id);
-//        if (!(F.status))
-//        {
-//            throw new Exception(F.mensagem);
-//        }
-//    }
-//    else
-//    {
-//        throw new Exception(F.mensagem);
-//    }
-//}
-
-//public List<List<string>> BuscarFicharioDBTodosSQL(string conexao)
-//{
-//    FicharioSQLServer F = new FicharioSQLServer(conexao);
-//    if (F.status)
-//    {
-//        List<string> List = new List<string>();
-//        List = F.BuscarTodos();
-//        if (F.status)
-//        {
-//            List<List<string>> ListaBusca = new List<List<string>>();
-//            for (int i = 0; i <= List.Count - 1; i++)
-//            {
-//                Cliente.Unit C = Cliente.DesSerializedClassUnit(List[i]);
-//                ListaBusca.Add(new List<string> { C.Id, C.nomeItem });
-//            }
-//            return ListaBusca;
-//        }
-//        else
-//        {
-//            throw new Exception(F.mensagem);
-//        }
-//    }
-//    else
-//    {
-//        throw new Exception(F.mensagem);
-//    }
-//}

@@ -12,7 +12,6 @@ namespace EstoqueTI.Classes
     {
         public class Unit
         {
-            public int id { get; set; }
             [Required(ErrorMessage = "Cnpj é Obrigatório")]
             public string cnpj { get; set; }
             [Required(ErrorMessage = "Nome é Obrigatória")]
@@ -20,7 +19,7 @@ namespace EstoqueTI.Classes
             [Required(ErrorMessage = "Contato é Obrigatório")]
             public string contato { get; set; }
 
-            public List<string> ListaCamposDB = new List<string>() { "id", "cnpj", "nome", "contato" };
+            public List<string> ListaCamposDB = new List<string>() {"cnpj", "nome", "contato" };
             public string tabela = "dbo.fornecedor";
 
             public void ValidaClasse()
@@ -45,24 +44,26 @@ namespace EstoqueTI.Classes
             //Pegar o conteudo e transformar em insert
             public string ToInsert()
             {
-                string SQL;
+                 string SQL;
 
-                SQL = $@"INSERT INTO {tabela}
-                ({ListaCamposDB[0]}, {ListaCamposDB[1]}, {ListaCamposDB[2]}, {ListaCamposDB[3]}) VALUES ('";
-                SQL += this.id + "', '" + this.cnpj + "', '" + this.nome + "', '" + this.contato + "')";
-                return SQL;
+                 SQL = $@"INSERT INTO {tabela}
+                 ({ListaCamposDB[0]}, {ListaCamposDB[1]}, {ListaCamposDB[2]}) 
+                 VALUES ('{this.cnpj}', '{this.nome}', '{this.contato}')";
+
+                 return SQL;
+
             }
 
 
-            public string ToUpdate(int Id)
+            public string ToUpdate(int id)
             {
 
                 string SQL;
                 SQL = $@"UPDATE {tabela} SET ";
-                SQL += $"{ListaCamposDB[1]} = '" + this.cnpj + "',";
-                SQL += $"{ListaCamposDB[2]} = '" + this.nome + "',";
-                SQL += $"{ListaCamposDB[3]} = '" + this.contato + "'";
-                SQL += " WHERE id = '" + this.id + "';";
+                SQL += $"{ListaCamposDB[0]} = '" + this.cnpj + "',";
+                SQL += $"{ListaCamposDB[1]} = '" + this.nome + "',";
+                SQL += $"{ListaCamposDB[2]} = '" + this.contato + "'";
+                SQL += " WHERE id = '{id}';";
 
 
                 return SQL;
@@ -71,14 +72,11 @@ namespace EstoqueTI.Classes
             public Unit DataRowToUnit(DataRow dr)
             {
                 Unit u = new Unit();
-                u.id = Convert.ToInt32(dr["id"]);
-                u.cnpj = dr[ListaCamposDB[1]].ToString();
-                u.nome = dr[ListaCamposDB[2]].ToString();
-                u.contato = dr[ListaCamposDB[3]].ToString();
+                u.cnpj = dr[ListaCamposDB[0]].ToString();
+                u.nome = dr[ListaCamposDB[1]].ToString();
+                u.contato = dr[ListaCamposDB[2]].ToString();
 
                 return u;
-
-
             }
 
             #endregion
@@ -98,22 +96,22 @@ namespace EstoqueTI.Classes
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Inclusão não permitida. Identificador: " + this.id + ", erro: " + ex.Message);
+                    throw new Exception("Inclusão não permitida. Identificador: {id}, erro: " + ex.Message);
                 }
 
             }
 
-            public Unit BuscarFicharioSQLREL(int Id)
+            public Unit BuscarFicharioSQLREL(int id)
             {
                 try
                 {
-                    string SQL = $"SELECT * FROM {tabela} WHERE Id = '" + Id + "'";
+                    string SQL = $"SELECT * FROM {tabela} WHERE Id = '{id}'";
                     var db = new SqlClassServer();
                     var Dt = db.SQLQuery(SQL);
                     if (Dt.Rows.Count == 0)
                     {
                         db.Close();
-                        throw new Exception("Indentificador não existente: " + Id);
+                        throw new Exception("Indentificador não existente: " + id);
                     }
                     else
                     {
@@ -128,21 +126,21 @@ namespace EstoqueTI.Classes
 
             }
 
-            public void AlterarFicharioSQLREL()
+            public void AlterarFicharioSQLREL(int id)
             {
                 try
                 {
-                    string SQL = $"SELECT * FROM {tabela} WHERE Id = '" + this.id + "'";
+                    string SQL = $"SELECT * FROM {tabela} WHERE Id = '{id}'";
                     var db = new SqlClassServer();
                     var Dt = db.SQLQuery(SQL);
                     if (Dt.Rows.Count == 0)
                     {
                         db.Close();
-                        throw new Exception("Indentificador não existente: " + this.id);
+                        throw new Exception("Indentificador não existente: " + id);
                     }
                     else
                     {
-                        SQL = this.ToUpdate(this.id);
+                        SQL = this.ToUpdate(id);
                         db.SQLCommand(SQL);
                         db.Close();
                     }
@@ -153,22 +151,22 @@ namespace EstoqueTI.Classes
                 }
             }
 
-            public void ApagarFicharioSQLREL()
+            public void ApagarFicharioSQLREL(int id)
             {
                 try
                 {
-                    string SQL = $"SELECT * FROM {tabela} WHERE Id = '" + this.id + "'";
+                    string SQL = $"SELECT * FROM {tabela} WHERE Id = '{id}'";
                     var db = new SqlClassServer();
                     //Usando o db.SQLQurey para validar se o cliente existe
                     var Dt = db.SQLQuery(SQL);
                     if (Dt.Rows.Count == 0)
                     {
                         db.Close();
-                        throw new Exception("Indentificador não existente: " + this.id);
+                        throw new Exception("Indentificador não existente: " + id);
                     }
                     else
                     {
-                        SQL = $"DELETE FROM {tabela} WHERE Id = '" + this.id + "'";
+                        SQL = $"DELETE FROM {tabela} WHERE Id = '{id}'";
                         db.SQLCommand(SQL);
                         db.Close();
                     }
@@ -205,7 +203,5 @@ namespace EstoqueTI.Classes
                 #endregion
             }
         }
-
-
     }
 }

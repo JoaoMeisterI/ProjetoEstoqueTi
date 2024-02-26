@@ -29,11 +29,10 @@ namespace EstoqueTI
         {
             try
             {
-                FuncoesUteis.Funcoes buscaId = new Funcoes();
-                int ID = buscaId.BuscarFicharioId("dbo.item");
+               
 
                 Unit u = new Unit();
-                u.id = ID += 1;
+              
                 u.nomeItem = txt_item.Text;
                 u.categoria = cb_categoria.Text;
                 u.observacao = txt_observacao.Text;

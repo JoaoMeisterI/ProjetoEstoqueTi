@@ -1,4 +1,5 @@
 using EstoqueTI;
+using EstoqueTI.FormulariosCadastro;
 using EstoqueTI.FormulariosIniciais;
 
 namespace Frm_EstoquePrincipal

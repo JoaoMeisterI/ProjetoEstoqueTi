@@ -25,11 +25,10 @@ namespace EstoqueTI.FormulariosCadastro
 
             try
             {
-                FuncoesUteis.Funcoes FuncoesUteis = new Funcoes();
-                int ID = FuncoesUteis.BuscarFicharioId("dbo.centrocusto");
+               
 
                 Unit u = new Unit();
-                u.id = ID += 1;
+       
                 u.cnpj = txt_cnpj.Text;
                 u.nome = txt_nome.Text;
                 u.contato = txt_contato.Text;

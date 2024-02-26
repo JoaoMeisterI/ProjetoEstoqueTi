@@ -26,11 +26,9 @@ namespace EstoqueTI
 
             try
             {
-                FuncoesUteis.Funcoes FuncoesUteis = new Funcoes();
-                int ID = FuncoesUteis.BuscarFicharioId("recebe");
+              
 
                 Unit u = new Unit();
-                u.id = ID += 1;
                 string item1 = cb_item.Text;
                 u.item = Unit.BuscaIdItem(item1);
                 u.valor = float.Parse(txt_valor.Text);
