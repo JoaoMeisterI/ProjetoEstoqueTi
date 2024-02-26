@@ -1,6 +1,7 @@
 using EstoqueTI;
 using EstoqueTI.FormulariosCadastro;
 using EstoqueTI.FormulariosIniciais;
+using EstoqueTI.FormulariosMovimento;
 
 namespace Frm_EstoquePrincipal
 {
@@ -15,7 +16,7 @@ namespace Frm_EstoquePrincipal
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Frm_TelaDeLogin());
+            Application.Run(new Frm_Transfere());
 
 
            
