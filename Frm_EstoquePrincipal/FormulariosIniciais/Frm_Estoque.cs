@@ -2,6 +2,7 @@
 using EstoqueTI;
 using EstoqueTI.FormulariosCadastro;
 using EstoqueTI.FormulariosIniciais;
+using EstoqueTI.FormulariosConsulta;
 using System.Data.SqlClient;
 
 namespace Frm_EstoquePrincipal
@@ -43,6 +44,12 @@ namespace Frm_EstoquePrincipal
         private void receberMaterialToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Frm_Recebe frm = new Frm_Recebe();
+            frm.Show();
+        }
+
+        private void materiasDisponíveisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Frm_ConsultaItems frm = new Frm_ConsultaItems();
             frm.Show();
         }
     }

@@ -188,7 +188,7 @@ namespace EstoqueTI.Classes
                     var Dt = db.SQLQuery(SQL);
                     for (int i = 0; i <= Dt.Rows.Count - 1; i++)
                     {
-                        ListaBusca.Add(new List<string> { Dt.Rows[i][ListaCamposDB[0]].ToString(), Dt.Rows[i][ListaCamposDB[1]].ToString(), Dt.Rows[i][ListaCamposDB[2]].ToString(), Dt.Rows[i][ListaCamposDB[3]].ToString(), Dt.Rows[i][ListaCamposDB[4]].ToString() });
+                        ListaBusca.Add(new List<string> { Dt.Rows[i][ListaCamposDB[0]].ToString(), Dt.Rows[i][ListaCamposDB[1]].ToString(), Dt.Rows[i][ListaCamposDB[2]].ToString() });
                     }
                     return ListaBusca;
                 }

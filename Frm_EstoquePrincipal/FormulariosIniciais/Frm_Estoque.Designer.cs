@@ -178,6 +178,7 @@
             materiasDisponíveisToolStripMenuItem.Name = "materiasDisponíveisToolStripMenuItem";
             materiasDisponíveisToolStripMenuItem.Size = new Size(259, 26);
             materiasDisponíveisToolStripMenuItem.Text = "Materias disponíveis";
+            materiasDisponíveisToolStripMenuItem.Click += materiasDisponíveisToolStripMenuItem_Click;
             // 
             // historicoDeMovimToolStripMenuItem
             // 
